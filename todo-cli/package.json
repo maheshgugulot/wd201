@@ -1,5 +1,5 @@
 {
-  "name": "todo-cli",
+  "nafme": "todo-cli",
   "version": "1.0.0",
   "description": "",
   "main": "todo.js",
@@ -23,3 +23,4 @@
     "prettier": "^3.1.0"
   }
 }
+
