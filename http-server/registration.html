@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Form usage</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    #container {
+        width: 80%;
+        max-width: 600px;
+        margin-top: 20px;
+    }
+
+    input[type=text],
+    input[type=email],
+    input[type=password],
+    input[type=date],
+    input[type=checkbox],
+    select,
+    input[type=submit] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        background-color: red;
+        color: white;
+        cursor: pointer;
+    }
+
+
+
+    body {
+        background-color: #f2f2f2;
+    }
+
+    .firsth {
+        text-align: center;
+    }
+
+    .head-main {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+
+    .borderline {
+        border-bottom: 2px solid #333;
+        width: 50px;
+        margin: 0 auto;
+    }
+
+    .divlab {
+        margin-bottom: 15px;
+    }
+
+    h2 {
+        text-decoration: borderline;
+        margin-top: 30px;
+    }
+
+    #userData {
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #userData th,
+    #userData td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    #userData th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<body>
+    <div id="container">
+        <div class="firsth">
+            <h1 class="text-center head-main">Registration Form</h1>
+            <div class="borderline"></div>
+        </div>
+
+        <form id="regform">
+            <div class="divlab">
+                <label for="username">Username:</label>
+                <input required type="text" id="name" name="Username">
+            </div>
+
+            <div class="divlab">
+                <label for="email">Email</label>
+                <input required type="email" id="email" name="Email">
+            </div>
+
+            <div class="divlab">
+                <label for="password">Password</label>
+                <input required type="password" id="password" name="password">
+            </div>
+
+            <div class="divlab">
+                <label for="dob">Date of Birth</label>
+                <input required type="date" id="dob" min="1967-11-23" max="2005-11-21">
+            </div>
+
+            <div class="divlab">
+                <input style="width:20px;height:20px" type="checkbox" required id="terms">
+                <label for="accept">Accept Terms & Conditions</label>
+            </div>
+
+            <div>
+              <input
+                type="submit"
+                value="Submit"
+                class="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer"
+              />
+            </div>
+            <div>
+                <h2>Table of User Entries</h2>
+                <table id="userData" class="w-full bg-white rounded-md shadow-md">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class="px-4 py-2">Name</th>
+                            <th class="px-4 py-2">Email</th>
+                            <th class="px-4 py-2">Password</th>
+                            <th class="px-4 py-2">Dob</th>
+                            <th class="px-4 py-2">Accepted terms?</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-table"></tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
