@@ -5,7 +5,6 @@ const { all, add, markAsComplete, overdue, dueToday, dueLater } = todoList();
 const createTodo = (title, dueDate) => ({ title, dueDate, completed: false });
 const dateToday = new Date();
 const today = dateToday.toISOString().split("T")[0];
-console.log(today);
 const yesterday = new Date(dateToday);
 yesterday.setDate(dateToday.getDate() - 1);
 const Yesterday = yesterday.toISOString().split("T")[0];
