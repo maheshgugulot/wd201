@@ -8,12 +8,15 @@
     "test": "NODE_ENV=test jest --detectOpenHandles",
     "prepare": "cd .. && husky install todo-app/.husky"
   },
-  "lint-staged": {
-    "*.js": [
-      "eslint",
-      "prettier --write ."
-    ]
-  },
+    "lint-staged": {
+      "*.{js,jsx}": [
+        "eslint --fix",
+        "prettier --write"
+      ],
+      "*.{css,scss}": ["stylelint --fix"]
+    }
+  ,
+  
   "author": "",
   "license": "ISC",
   "dependencies": {
