@@ -30,7 +30,7 @@ describe("Todo Application", function () {
     });
     expect(response.statusCode).toBe(201);
     expect(response.header["content-type"]).toBe(
-      "application/json; charset=utf-8"
+      "application/json; charset=utf-8",
     );
     const parsedResponse = JSON.parse(response.text);
     expect(parsedResponse.id).toBeDefined();
@@ -73,7 +73,6 @@ describe("Todo Application", function () {
   });
 
   test("Deletes a todo with the given ID if it exists and sends a boolean response", async () => {
-    // Create a todo to be deleted
     const createResponse = await agent.post("/todos").send({
       title: "Delete me",
       dueDate: new Date().toISOString(),
@@ -83,19 +82,17 @@ describe("Todo Application", function () {
     const createdTodo = JSON.parse(createResponse.text);
     const todoID = createdTodo.id;
 
-    // Delete the todo
     const deleteResponse = await agent.delete(`/todos/${todoID}`);
     expect(deleteResponse.statusCode).toBe(200);
     expect(deleteResponse.header["content-type"]).toBe(
-      "application/json; charset=utf-8"
+      "application/json; charset=utf-8",
     );
 
     const parsedDeleteResponse = JSON.parse(deleteResponse.text);
     expect(parsedDeleteResponse.success).toBe(true);
 
-    // Try to fetch the deleted todo, should return 404
     const fetchResponse = await agent.get(`/todos/${todoID}`);
-    expect(fetchResponse.statusCode).toBe(404);
-});
 
+    expect(fetchResponse.statusCode).toBe(404);
+  });
 });
