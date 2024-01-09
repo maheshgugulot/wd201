@@ -78,17 +78,11 @@ describe("Todo Application", function () {
       dueDate: new Date().toISOString(),
       completed: false,
     });
-    const responsed = await agent.get("/todos");
-    const parsedRespons = JSON.parse(responsed.text);
-    console.log(parsedRespons);
 
     const parsedResponse = JSON.parse(sent.text);
     const ID = parsedResponse.id;
 
     const DeletedResponse = await agent.delete(`/todos/${ID}`);
-    const response = await agent.get("/todos");
-    const parsedResponsed = JSON.parse(response.text);
-    console.log(parsedResponsed);
 
     expect(Boolean(DeletedResponse.text)).toBe(true);
   });
