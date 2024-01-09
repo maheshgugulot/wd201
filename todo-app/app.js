@@ -29,14 +29,14 @@ app.get("/todos/:id", async function (request, response) {
     return response.json(todo);
   } catch (error) {
     console.log(error);
-    return response.status(500).json({error: "Internal Server Error" });
+    return response.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 app.post("/todos", async function (request, response) {
   try {
     const todo = await Todo.create(request.body);
-    return response.status(201).json(todo);
+    return response.status(200).json(todo);
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
@@ -67,7 +67,9 @@ app.delete("/todos/:id", async function (request, response) {
     return response.json({ success: true });
   } catch (error) {
     console.log(error);
-    return response.status(500).json({ success: false, error: "Internal Server Error" });
+    return response
+      .status(500)
+      .json({ success: false, error: "Internal Server Error" });
   }
 });
 
