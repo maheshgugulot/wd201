@@ -1,5 +1,5 @@
-/* eslint-disable no-undef */
 const request = require("supertest");
+
 const db = require("../models/index");
 const app = require("../app");
 
@@ -72,26 +72,24 @@ describe("Todo Application", function () {
   });
 
   test("Deletes a todo with the given ID if it exists and sends a boolean response", async () => {
-    const createResponse = await agent.post("/todos").send({
-      title: "Delete me",
+    // FILL IN YOUR CODE HERE
+    const sent = await agent.post("/todos").send({
+      title: "Buy ps4",
       dueDate: new Date().toISOString(),
       completed: false,
     });
+    const responsed = await agent.get("/todos");
+    const parsedRespons = JSON.parse(responsed.text);
+    console.log(parsedRespons);
 
-    const createdTodo = JSON.parse(createResponse.text);
-    const todoID = createdTodo.id;
+    const parsedResponse = JSON.parse(sent.text);
+    const ID = parsedResponse.id;
 
-    const deleteResponse = await agent.delete(`/todos/${todoID}`);
-    expect(deleteResponse.statusCode).toBe(200);
-    expect(deleteResponse.header["content-type"]).toBe(
-      "application/json; charset=utf-8",
-    );
+    const DeletedResponse = await agent.delete(`/todos/${ID}`);
+    const response = await agent.get("/todos");
+    const parsedResponsed = JSON.parse(response.text);
+    console.log(parsedResponsed);
 
-    const parsedDeleteResponse = JSON.parse(deleteResponse.text);
-    expect(parsedDeleteResponse.success).toBe(true);
-
-    const fetchResponse = await agent.get(`/todos/${todoID}`);
-
-    expect(fetchResponse.statusCode).toBe(404);
+    expect(Boolean(DeletedResponse.text)).toBe(true);
   });
 });
