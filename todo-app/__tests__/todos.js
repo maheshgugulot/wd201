@@ -29,7 +29,7 @@ describe("Todo Application", function () {
     });
     expect(response.statusCode).toBe(200);
     expect(response.header["content-type"]).toBe(
-      "application/json; charset=utf-8"
+      "application/json; charset=utf-8",
     );
     const parsedResponse = JSON.parse(response.text);
     expect(parsedResponse.id).toBeDefined();
