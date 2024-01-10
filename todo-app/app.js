@@ -59,12 +59,12 @@ app.put("/todos/:id/markAsCompleted", async function (request, response) {
 
 app.delete("/todos/:id", async function (request, response) {
   try {
-    const deletedItem = await Todo.destroy({
+    const Itemdeleted = await Todo.destroy({
       where: {
         id: request.params.id,
       },
     });
-    response.send(deletedItem ? true : false);
+    response.send(Itemdeleted ? true : false);
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
