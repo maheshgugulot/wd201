@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Due Date</th>
+            <th>Completed</th>
+            <!-- Add more headers as needed -->
+          </tr>
+        </thead>
+        <tbody>
+          <% allTodos.forEach(todo => { %>
+            <tr>
+              <td><%= todo.dataValues.id %></td>
+              <td><%= todo.dataValues.title %></td>
+              <td><%= todo.dataValues.dueDate %></td>
+              <td><%= todo.dataValues.completed %></td>
+              <!-- Add more cells as needed -->
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+</body>
+</html>
