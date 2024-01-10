@@ -8,16 +8,21 @@ const path = require("path");
 
 app.set("view engine", "ejs");
 app.get("/", async (request, response) => {
-  const allTodos = await Todo.getTodos();
-  console.log(allTodos);
-  if (request.accepts("html")) {
-    response.render("index", {
-      allTodos,
-    });
-  } else {
-    response.json({ allTodos });
+  try {
+    const allTodos = await Todo.getTodos();
+    if (request.accepts("html")) {
+      response.render("index", {
+        allTodos,
+      });
+    } else {
+      response.json({
+        allTodos,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    response.status(422).json(error);
   }
-  response.render("index");
 });
 
 app.use(express.static(path.join(__dirname, "public")));
