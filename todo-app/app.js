@@ -4,6 +4,23 @@ const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+const path = require("path");
+
+app.set("view engine", "ejs");
+app.get("/", async (request, response) => {
+  const allTodos = await Todo.getTodos();
+  console.log(allTodos);
+  if (request.accepts("html")) {
+    response.render("index", {
+      allTodos,
+    });
+  } else {
+    response.json({ allTodos });
+  }
+  response.render("index");
+});
+
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", function (request, response) {
   response.send("Hello World");
