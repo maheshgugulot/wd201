@@ -14,7 +14,7 @@
     "dialect": "postgres"
   },
   "production": {
-"use_env_variable":"Mahesh-DATABASE",
-"dialect":"postgres"
+  "use_env_variable":"Mahesh-DATABASE",
+  "dialect":"postgres"
   }
 }
