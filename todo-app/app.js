@@ -7,6 +7,8 @@ app.use(bodyParser.json());
 const path = require("path");
 
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
 app.get("/", async (request, response) => {
   try {
     const allTodos = await Todo.getTodos();
@@ -24,8 +26,6 @@ app.get("/", async (request, response) => {
     response.status(422).json(error);
   }
 });
-
-app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/todos", async function (_request, response) {
   console.log("Processing list of all Todos ...");
