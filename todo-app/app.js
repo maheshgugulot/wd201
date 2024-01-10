@@ -59,15 +59,15 @@ app.put("/todos/:id/markAsCompleted", async function (request, response) {
 
 app.delete("/todos/:id", async function (request, response) {
   try {
-    const todo = await Todo.findByPk(request.params.id);
-    if (!todo) {
-      return response.status(404).json({ error: "Todo not found" });
-    }
-    await todo.destroy();
-    return response.json(true);
+    const deletedItem = await Todo.destroy({
+      where: {
+        id: request.params.id,
+      },
+    });
+    response.send(deletedItem ? true : false);
   } catch (error) {
     console.log(error);
-    return response.json(false);
+    return response.status(422).json(error);
   }
 });
 
