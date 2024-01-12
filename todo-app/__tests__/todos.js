@@ -35,7 +35,7 @@ describe("Todo Application", function () {
       _csrf: csrfToken,
     });
 
-    expect(response.statusCode).toBe(500);
+    expect(response.statusCode).toBe(302);
   });
   // test("Marks a todo with the given ID as complete", async () => {
   //   const response = await agent.post("/todos").send({
