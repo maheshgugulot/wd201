@@ -33,6 +33,7 @@ describe("Todo Application", function () {
       completed: false,
       _csrf: csrfToken,
     });
+
     expect(response.statusCode).toBe(302);
   });
   test("Marks a todo with given ID as completed", async () => {
