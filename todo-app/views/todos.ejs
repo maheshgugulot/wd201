@@ -7,6 +7,28 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         var token = document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        function updateTodo(id) {
+            const bool = document.querySelector(`#todo-checkbox-${id}`).checked;
+            var token = document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+
+            console.log(bool)
+            console.log(id) 
+            console.log(token)
+            fetch(`/todos/${id}`, {
+                method: "put",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    completed: bool,
+                    "_csrf": token
+                })
+            })
+                .then((res) => {
+                    if (res.ok) {
+                        window.location.reload();
+                    }
+                })
+                .catch((err) => console.error(err));
+        }
         function deleteTodo(id) {
              console.log(id) 
             fetch(`/todos/${id}`, {
@@ -23,25 +45,7 @@
                 })
                 .catch((err) => console.error(err));
         }
-        function updateTodo(id) {
-            const bool = document.querySelector(`#todo-checkbox-${id}`).checked;
-            console.log(bool)
-            fetch(`/todos/${id}`, {
-                method: "put",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    completed: bool,
 
-                    "_csrf": token
-                })
-            })
-                .then((res) => {
-                    if (res.ok) {
-                        window.location.reload();
-                    }
-                })
-                .catch((err) => console.error(err));
-        }
     </script>
     <title>Document</title>
 
@@ -68,6 +72,7 @@
 </form>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    
   <div class="mx-auto">
       <h5 class="text-lg font-bold mb-4">Overdue </h5>(<span id="count-overdue"><%= overdue.length %></span>)
       <table class="border border-gray-400 my-4 w-full">
@@ -82,7 +87,7 @@
                 <tr>
                     <td class="Todo-Item" >
                         <div class="flex items-center w-fit my-2 px-2 py-1 rounded hover:bg-purple-50 ml-5">
-                          <input id="todo-checkbox-<%= todo.dataValues.id  %>" type="checkbox" <%= todo.dataValues.completed  ? "checked" : "" %> onclick="updateTodo(<%= todo.dataValues.id  %>)"
+                          <input id="todo-checkbox-<%= todo.dataValues.id  %>" type="checkbox"  <%= todo.dataValues.completed ? "checked":"" %>   onclick="updateTodo(<%= todo.dataValues.id  %>)"
                               class="w-4 h-4 text-blue-600 bg-gray rounded border-gray-300" >
                         <label for="todo-checkbox-<%= todo.dataValues.id %>" class="ml-2 text-sm cursor-pointer text-gray-900">
                       <%= todo.dataValues.title %>
@@ -115,7 +120,8 @@
                 <tr>
                     <td class="Todo-Item" >
                         <div class="flex items-center w-fit my-2 px-2 py-1 rounded hover:bg-purple-50 ml-5">
-                        <input id="todo-checkbox-<%= todo.dataValues.id %>" type="checkbox" <%= todo.dataValues.completed ? "checked" : "" %> onclick="updateTodo(<%=todo.dataValues.id %>)"
+                        <input id="todo-checkbox-<%= todo.dataValues.id %>" type="checkbox"     <%= todo.dataValues.completed ? 'checked' : '' %>
+                        onclick="updateTodo(<%=todo.dataValues.id %>)"
                             class="w-4 h-4 text-blue-600 bg-gray rounded border-gray-300">
                         <label for="todo-checkbox-<%= todo.dataValues.id %>" class="ml-2 text-sm cursor-pointer text-gray-900">
                       <%= todo.dataValues.title %>
@@ -147,7 +153,7 @@
                   <tr>
                     <td class="Todo-Item" >
                         <div class="flex items-center w-fit my-2 px-2 py-1 rounded hover:bg-purple-50 ml-5">
-                            <input id="todo-checkbox-<%= todo.dataValues.id  %>" type="checkbox" <%= todo.dataValues.completed  ? "checked" : "" %> onclick="updateTodo(<%= todo.dataValues.id  %>)"
+                            <input id="todo-checkbox-<%= todo.dataValues.id  %>" type="checkbox" <%= todo.dataValues.completed  ? "checked" : "" %> onclick= "updateTodo(<%= todo.dataValues.id  %>)"
                                 class="w-4 h-4 text-blue-600 bg-gray rounded border-gray-300" >
                           <label for="todo-checkbox-<%= todo.dataValues.id %>" class="ml-2 text-sm cursor-pointer text-gray-900">
                         <%= todo.dataValues.title %>
@@ -165,10 +171,8 @@
           </tbody>
       </table>
   </div>
-</div>
-
   <div class="mx-auto">
-      <h5 class="text-lg font-bold mb-4">Completed Items </h5>(<span id="count-completed"><%= dueToday.length %></span>)
+      <h5 class="text-lg font-bold mb-4">Completed Items</h5>(<span id="count-completed"><%= completed.length %></span>)
       <table class="border border-gray-400 my-4 w-full">
           <thead>
               <tr>
@@ -199,7 +203,6 @@
           </tbody>
       </table>
   </div>
-  
-
+</div>
 </body>
 </html>
