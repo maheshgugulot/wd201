@@ -10,10 +10,6 @@
         function updateTodo(id) {
             const bool = document.querySelector(`#todo-checkbox-${id}`).checked;
             var token = document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-
-            console.log(bool)
-            console.log(id) 
-            console.log(token)
             fetch(`/todos/${id}`, {
                 method: "put",
                 headers: { "Content-Type": "application/json" },
