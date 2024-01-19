@@ -69,9 +69,11 @@ passport.deserializeUser((id, done) => {
     });
 });
 app.get("/", async (request, response) => {
+  if (req.isAuthenticated()) {
+    return res.redirect("/todos");
+  }
   response.render("index", {
     title: "Todo List",
-
     csrfToken: request.csrfToken(),
   });
 });
