@@ -130,8 +130,8 @@ app.post(
     failureRedirect: "/login",
     failureFlash: true,
   }),
-  (req, res) => {
-    console.log(req.user);
+  (request, response) => {
+    console.log(request.user);
     if (request.body.email.length == 0) {
       request.flash("error", "Email can not be empty!");
       return response.redirect("/login");
@@ -141,7 +141,7 @@ app.post(
       request.flash("error", "Password length should be minimun 8");
       return response.redirect("/login");
     }
-    res.redirect("/todos");
+    response.redirect("/todos");
   },
 );
 
