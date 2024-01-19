@@ -10,47 +10,62 @@ module.exports = (sequelize, DataTypes) => {
     // eslint-disable-next-line no-unused-vars
     static associate(models) {
       // define association here
+      Todo.belongsTo(models.User, {
+        foreignKey: "userId",
+      });
     }
 
-    static addTodo({ title, dueDate }) {
-      return this.create({ title: title, dueDate: dueDate, completed: false });
+    static addTodo({ title, dueDate, userId }) {
+      return this.create({
+        title: title,
+        dueDate: dueDate,
+        completed: false,
+        userId,
+      });
     }
 
     markAsCompleted() {
       return this.update({ completed: true });
     }
 
-    static getTodos() {
-      return this.findAll();
+    static getTodos(userId) {
+      return this.findAll({
+        where: {
+          userId,
+        },
+      });
     }
-    static async overdue() {
+    static async overdue(userId) {
       return await Todo.findAll({
         where: {
           dueDate: {
             [Op.lt]: new Date(),
           },
+          userId,
           completed: false,
         },
       });
     }
 
-    static async dueToday() {
+    static async dueToday(userId) {
       return await Todo.findAll({
         where: {
           dueDate: {
             [Op.eq]: new Date(),
           },
+          userId,
           completed: false,
         },
       });
     }
 
-    static async dueLater() {
+    static async dueLater(userId) {
       return await Todo.findAll({
         where: {
           dueDate: {
             [Op.gt]: new Date(),
           },
+          userId,
           completed: false,
         },
       });
@@ -59,18 +74,20 @@ module.exports = (sequelize, DataTypes) => {
       return this.update({ completed: bool });
     }
 
-    static async remove(id) {
+    static async remove(id, userId) {
       return this.destroy({
         where: {
           id: id,
+          userId,
         },
       });
     }
 
-    static completed() {
+    static completed(userId) {
       return this.findAll({
         where: {
           completed: true,
+          userId,
         },
       });
     }
