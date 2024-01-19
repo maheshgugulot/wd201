@@ -14,7 +14,7 @@
 
         <h1 class="text-3xl font-bold mb-6">Your Todo App</h1>
         <%- include("header.ejs") %> 
-        <p class="py-2">signout <a href="/signout" class="text-green-600">signup</a></p>
+         <a href="/signout" class="text-green-600">signout</a>
 
         <%- include('todos.ejs', { overdue, dueToday, dueLater,csrfToken,completed}) %>
         <%- include("footer.ejs") %>
